@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import UploadForm from './Upload.vue'; // Adjust the path as needed
+import UploadForm from './Upload.vue';
 </script>
 
 
@@ -21,7 +21,43 @@ import UploadForm from './Upload.vue'; // Adjust the path as needed
                         <UploadForm />
                     </div>
                 </div>
+
+                <Table :columns="columns" :items="transactions"></Table>
             </div>
         </div>
     </AuthenticatedLayout>
 </template>
+
+<script>
+import Table from '../Components/Table.vue';
+export default {
+    components: { Table },
+    data() {
+        return {
+            columns: [
+                { key: 'date', label: 'Date' },
+                { key: 'description', label: 'Description' },
+                { key: 'account_number', label: 'Account Number' },
+                { key: 'counter_account_number', label: 'Counter Account Number' },
+                { key: 'code', label: 'Code' },
+                { key: 'debit_credit', label: 'Debit/Credit' },
+                { key: 'amount', label: 'Amount' },
+                { key: 'transaction_type', label: 'Transaction Type' },
+                { key: 'notes', label: 'Notes' },
+                { key: 'balance_after_transaction', label: 'Balance After Transaction' },
+                { key: 'tag', label: 'Tag' },
+            ],
+            transactions: [],
+        };
+    },
+    created() {
+        axios.get('/transactions')
+            .then(response => {
+                this.transactions = response.data.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+}
+</script>

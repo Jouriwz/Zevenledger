@@ -18,7 +18,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Auth/Login', [
+    return Inertia::render('welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -35,6 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/upload', [UploadController::class, 'store'])->name('upload.store');
+    Route::get('/transactions', [UploadController::class, 'index']);
+
 });
 
 
