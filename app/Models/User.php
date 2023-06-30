@@ -42,4 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Get the banking transactions for the user.
+     */
+    public function bankingTransactions()
+    {
+        return $this->hasMany(BankingTransaction::class);
+    }
 }

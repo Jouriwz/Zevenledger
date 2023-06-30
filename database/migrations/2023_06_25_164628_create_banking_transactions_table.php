@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('banking_transactions', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('date');
+            $table->date('date');
             $table->string('description');
             $table->string('account_number');
             $table->string('counter_account_number')->nullable();
