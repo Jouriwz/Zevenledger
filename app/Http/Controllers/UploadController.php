@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BankingTransactionResource;
 use Illuminate\Http\Request;
 use App\Models\BankingTransaction;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,14 @@ use Carbon\Carbon;
 
 class UploadController extends Controller
 {
+    public function index()
+    {
+        $transactions = BankingTransaction::where('user_id', Auth::id())->get();
+
+        return BankingTransactionResource::collection($transactions);
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
