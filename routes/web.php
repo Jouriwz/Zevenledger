@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\FixedChargesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,7 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload', [UploadController::class, 'store'])->name('upload.store');
     Route::get('/transactions', [UploadController::class, 'index']);
 
+    // FixedChargesController routes
+    Route::resource('fixed-charges', FixedChargesController::class);
 });
-
 
 require __DIR__.'/auth.php';
