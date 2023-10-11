@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FixedCharge;
 use Illuminate\Http\Request;
 use Illuminate\http\Response;
+use Inertia\Inertia;
 
 
 class FixedChargesController extends Controller
@@ -16,7 +17,7 @@ class FixedChargesController extends Controller
     public function index()
     {
         $fixedCharges = auth()->user()->fixedCharges;
-        return view('fixedCharges.index', compact('fixedCharges'));
+        return Inertia::render('Financial/FixedCharges', ['fixedCharges' => $fixedCharges]);
     }
 
     /**

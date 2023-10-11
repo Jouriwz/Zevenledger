@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/transactions', [UploadController::class, 'index']);
 
     // FixedChargesController routes
-    Route::resource('fixed-charges', FixedChargesController::class);
+    Route::resource('fixedCharges', FixedChargesController::class);
 });
 
 require __DIR__.'/auth.php';
