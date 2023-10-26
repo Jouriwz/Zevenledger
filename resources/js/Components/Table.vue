@@ -10,7 +10,12 @@
                 <tbody class="bg-white divide-y">
                 <tr v-for="(item, index) in items" :key="index">
                     <td v-for="column in columns" :key="column.key" class="px-4 py-3 text-sm">
-                        {{ item[column.key] }}
+                        <template v-if="column.key === 'actions'">
+                            <slot :name="column.key" :item="item"></slot>
+                        </template>
+                        <template v-else>
+                            {{ item[column.key] }}
+                        </template>
                     </td>
                 </tr>
                 </tbody>

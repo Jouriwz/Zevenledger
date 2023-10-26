@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\FixedCharge;
 use Illuminate\Http\Request;
-use Illuminate\http\Response;
 use Inertia\Inertia;
 
 
@@ -26,7 +25,7 @@ class FixedChargesController extends Controller
      */
     public function create()
     {
-        return view('fixedCharges.create');
+        return Inertia::render('FixedCharges/Create');
     }
 
     /**
@@ -38,14 +37,15 @@ class FixedChargesController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'amount' => 'required|numeric|min:0',
-            'due_date' => 'required|date',
+            'due_date' => 'nullable|date',
             'description' => 'nullable|string',
         ]);
 
-        auth()->user()->fixedCharges()->create($data);
+        $fixedCharge = auth()->user()->fixedCharges()->create($data);
 
-        return redirect()->route('fixedCharges.index')->with('success', 'Fixed charge added successfully!');
+        return response()->json($fixedCharge);
     }
+
 
     /**
      * Show the form for editing the specified fixed charge.
@@ -65,7 +65,7 @@ class FixedChargesController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'amount' => 'required|numeric|min:0',
-            'due_date' => 'required|date',
+            'due_date' => 'nullable|date',
             'description' => 'nullable|string',
         ]);
 
@@ -82,6 +82,10 @@ class FixedChargesController extends Controller
     {
         $fixedCharge->delete();
 
-        return redirect()->route('fixedCharges.index')->with('success', 'Fixed charge deleted successfully!');
+        return Inertia::render('Financial/FixedCharges', [
+            'fixedCharges' => auth()->user()->fixedCharges,
+            'success' => 'Fixed charge deleted successfully!',
+        ]);
     }
+
 }

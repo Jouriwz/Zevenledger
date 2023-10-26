@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->decimal('amount', 8, 2);
-            $table->date('due_date');
+            $table->date('due_date')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
 
